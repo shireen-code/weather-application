@@ -194,7 +194,7 @@ input:focus {
         console.log(longitude);
 
 var request = new XMLHttpRequest;
-    request.open("get", "http://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=6e764855ed6436cb81d5f7007fa44bc6");
+    request.open("get", "https://api.openweathermap.org/data/2.5/weather?lat="+latitude+"&lon="+longitude+"&appid=6e764855ed6436cb81d5f7007fa44bc6");
 
     request.send();
     request.onload = () => {
