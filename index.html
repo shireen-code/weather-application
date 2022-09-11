@@ -302,6 +302,14 @@ var request = new XMLHttpRequest;
             let country = myJSON.sys.country;
             let humidity = myJSON.main.humidity;
             let clouds = myJSON.clouds.all;
+            var newDate = new Date();
+            var unit="C";
+                if(unit=="C"){
+                        temp=Math.round(myJSON.main.temp-273);
+                        max=Math.round(myJSON.main.temp_max-273);
+                        min=Math.round(myJSON.main.temp_min-273);
+                        console.log(temp)
+                }
             let wind = myJSON.wind.speed;
                 document.getElementById('tempSearchID').innerHTML = `${temp}`;
                 document.getElementById('citySearch').innerHTML =  `${name}`;
