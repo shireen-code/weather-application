@@ -44,13 +44,13 @@
 
 .card2 {
     background-color: #607D8B;
-    padding: 0px 0px 40px 40px;
+    padding: 40px 0px 40px 40px;
     opacity: 0.6;
 }
 
 input {
     background-color: #607D8B;
-    padding: 24px 0px 12px 0px !important;
+    padding: 9px;
     width: 80%;
     box-sizing: border-box;
     border: none !important;
@@ -134,18 +134,25 @@ input:focus {
                             </div>
                         </div>
                     </div>
-                    <div class="card2 col-lg-4 col-md-5 d-flex align-items-center">
-                        <!-- <div class="row px-3">
-                            <input type="text" name="location" placeholder="Another location" class="mb-5">
-                            <div class="fa fa-search mb-5 mr-0 text-center"></div>
-                        </div> -->
+                    <div class="card2 col-lg-4 col-md-5">
+                        <div class="row px-3">
+                            <input id="showData" type="text" name="location" placeholder="Enter a city name" class="mb-5">
+                           <input id="weatherData" type="submit" value="Get Weather Information"></input>
+                        </div>
                         <div class="mr-5 px-3">
-                            <!-- <p class="light-text suggestion">Birmingham</p>
-                            <p class="light-text suggestion">Manchester</p>
-                            <p class="light-text suggestion">New York</p>
-                            <p class="light-text suggestion">California</p>
-        
-                            <div class="line my-5"></div> -->
+                            <div class="row px-3 mt-3 mb-3" id="show">
+                                <h1 class="large-font mr-3" id="tempSearchID">26&#176;</h1>
+                                <div class="d-flex flex-column mr-3">
+                                    <h2 class="mt-3 mb-0" id="citySearch">London</h2>
+                                    <span id="countrySearch">Manchester</span>
+                                    <small>10:36 - Tuesday, 22 Oct '19</small>
+                                    <small id="timeDateSearch">10:36 - Tuesday, 22 Oct '19</small>
+                                </div>
+                                <div class="d-flex flex-column text-center">
+                                    <h3 class="fa fa-sun-o mt-4"></h3>
+                                    <small id="weather">Sunny</small>
+                                </div>
+                            </div>
                             <div class="line my-5"></div>
                             <p>Weather Details</p>
                             <div class="row px-3">
@@ -185,6 +192,8 @@ input:focus {
 <script>
     const apiKey = "6e764855ed6436cb81d5f7007fa44bc6"
     var defaultBg = document.body;
+    var hide = document.getElementById('show');
+    hide.style.display = "none"
     function getCurrentLocation(position) {
         var pos=[];
         latitude = position.coords.latitude;
@@ -270,6 +279,37 @@ var request = new XMLHttpRequest;
     }
 
 }
+
+   
+        var weatherData = document.getElementById('weatherData')
+        weatherData.addEventListener("click", function(){
+            debugger
+        var cityName = document.getElementById('showData').value;
+        if(cityName == ""){
+            alert("enter a city name");
+        }
+        else{
+            hide.style.display = "block"
+            let res = new XMLHttpRequest;
+            res.open("get", "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=6e764855ed6436cb81d5f7007fa44bc6");
+            res.send();
+            res.onload = () => {
+            let data = res.response;
+            let myJSON = JSON.parse(data);
+            console.log(myJSON);
+            let name = myJSON.name;
+            let weather = myJSON.weather[0].description;
+            let country = myJSON.sys.country;
+            let humidity = myJSON.main.humidity;
+            let clouds = myJSON.clouds.all;
+            let wind = myJSON.wind.speed;
+                document.getElementById('tempSearchID').innerHTML = `${temp}`;
+                document.getElementById('citySearch').innerHTML =  `${name}`;
+                document.getElementById('countrySearch').innerHTML =  `${country}`;
+                document.getElementById('timeDateSearch').innerHTML =  `${newDate}`;
+    }
+}
+})
     
 
 </script>
